@@ -5,12 +5,19 @@
 #rectangle{
 	margin: auto;
 	position: absolute;
-	box-shadow: 2px 2px 5px black;
-    background-image: url(img/background.png);
+    background: blue;
 	
 
 }
 
+#enemy{
+    margin-left: 516px;
+    margin-top: 510px;
+    position: absolute;
+    background: red;
+
+
+}
 .zone {
 	height: 576px;
 	width: 576px;

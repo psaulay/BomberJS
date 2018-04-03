@@ -3,19 +3,24 @@ var classes = rect.classList;
 
 
 //var move = document.body.addEventListener();
+
 var zone = document.getElementById("zone");
 document.body.addEventListener('keydown',function(event){
+	
 //Movement
 var moveLeft = (rect.style.left.replace('px','')*1)-4 + "px";
 var moveRight = (rect.style.left.replace('px','')*1)+4 + "px";
 var moveUp = (rect.style.top.replace('px','')*1)-4 + "px";
 var moveDown = (rect.style.top.replace('px','')*1)+4 + "px";
+
 //Movement Stop
 var moveLeftStop = (rect.style.left.replace('px','')*1)+0+ "px";
 var moveUpStop = (rect.style.top.replace('px','')*1)+0 + "px";
+
 //Offset Object
 var goLeft = (rect.offsetLeft);
 var goTop = (rect.offsetTop);
+
 //Logs
 console.log(moveRight);
 console.log(goLeft);

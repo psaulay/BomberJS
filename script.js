@@ -1,81 +1,204 @@
-    var zone = document.getElementById("zone");
-    document.body.addEventListener('keydown',function(event){
+var player1 = document.getElementById('player1');
+var classes = player1.classList;
+//var move = document.body.addEventListener();
+var zone = document.getElementById("zone");
+
+document.body.addEventListener('keydown',function(event){
+
+    event.preventDefault();
     //Movement
-    var moveLeft = (rect.style.left.replace('px','')*1)-64 + "px";
-    var moveRight = (rect.style.left.replace('px','')*1)+64 + "px";
-    var moveUp = (rect.style.top.replace('px','')*1)-64 + "px";
-    var moveDown = (rect.style.top.replace('px','')*1)+64 + "px";
+    var moveLeft = (player1.style.left.replace('px','')*1)-64 + "px";
+    var moveRight = (player1.style.left.replace('px','')*1)+64 + "px";
+    var moveUp = (player1.style.top.replace('px','')*1)-64 + "px";
+    var moveDown = (player1.style.top.replace('px','')*1)+64 + "px";
     //Movement Stop
-    var moveLeftStop = (rect.style.left.replace('px','')*1)+0+ "px";
-    var moveUpStop = (rect.style.top.replace('px','')*1)+0 + "px";
+    var moveLeftStop = (player1.style.left.replace('px','')*1)+0+ "px";
+    var moveUpStop = (player1.style.top.replace('px','')*1)+0 + "px";
     //Offset Object
-    var goLeft = (rect.offsetLeft);
-    var goTop = (rect.offsetTop);
+    var goLeft = (player1.offsetLeft);
+    var goTop = (player1.offsetTop);
     //Logs
-    console.log(moveRight);
-    console.log(goLeft);
-    console.log(rect);
-    console.log(zone);
-    
-    //BOUTON GAUCHE
-    //document.getElementById("image").innerHTML = '<img src="image2.png" />';
-    //document.images.targetimage.src=towhat.src
-    
+    // console.log(moveRight);
+    // console.log(goLeft);
+    // console.log(player1);
+    // console.log(zone);
+
+     //BOUTON GAUCHE
     if (event.keyCode==37 ){
-    rect.style.left=moveLeft;
-    //document.getElementById("rectangle").innerHTML='<img src="img/player_right.png"/>';
+
+        var next = nextCell(player1, 'left')
+
+        if(next == false)
+         player1.style.left=moveLeft;
+
+         if (goLeft<100){
+            player1.style.left=moveLeftStop;
+        }
+
     }
-    if (goLeft<100){
-    rect.style.left=moveLeftStop;
-    }
-    
+
     //BOUTON DROIT
     if (event.keyCode==39){
-    rect.style.left=moveRight;
-    //document.getElementById("rectangle").innerHTML='<img src="img/player_left.png">';
-     if (goLeft>575){
-     rect.style.left=moveLeftStop;
+
+        var next = nextCell(player1, 'right')
+
+        if(next == false)
+            player1.style.left=moveRight;
     
-     }
-     
+        if (goLeft>565){
+            player1.style.left=moveLeftStop;
+        }
+
     }
-    
+
     // BOUTON HAUT
-    
     if (event.keyCode==38){
-    rect.style.top=moveUp;
-    //document.getElementById("rectangle").innerHTML='<img src="img/player_up.png">';
+
+        var next = nextCell(player1, 'top')
+
+        if(next == false)
+            player1.style.top=moveUp;
+ 
     }
     if (goTop<100){
-    rect.style.top=moveUpStop;
+        player1.style.top=moveUpStop;
     }
-    
+
     // BOUTON BAS
     if (event.keyCode==40){
-    rect.style.top=moveDown;
-    //document.getElementById("rectangle").innerHTML='<img src="img/player_down.png">';
-    if (goTop>575){
-     rect.style.top=moveUpStop;
-    }
-    }
-    })
 
-var tableObj = document.getElementById( "table" );
-var arr = [];
-var allTRs = tableObj.getElementsByTagName( "tr" );
-    for ( var trCounter = 0; trCounter < allTRs.length; trCounter++ )
+        var next = nextCell(player1, 'bottom')
+
+        if(next == false)
+            player1.style.top=moveDown;
+
+        if (goTop>575){
+            player1.style.top=moveUpStop;
+        }
+
+    }
+})
+
+
+/////////// GRID
+var grid = [];
+
+for ( var i = 64; i < 586; i+=64)
+{
+        for ( var j = 64; j < 586; j+=64 )
     {
-        var tmpArr = [];
-        var allTDsInTR = allTRs[ trCounter ].getElementsByTagName( "td" );
-        for ( var tdCounter = 0; tdCounter < allTDsInTR.length; tdCounter++ )
-            {
-                 tmpArr.push( allTDsInTR[ tdCounter ].innerHTML );
-            }
-         arr.push( tmpArr );
+        grid.push({top:i,left:j})
     }
-    console.log( arr );
 
-    var rect = document.getElementById('rectangle');
-    var classes = rect.classList;
+}
+// console.log(grid);
+
+
+
+const solides = document.querySelectorAll('.map_cell_solid')
+const length  = solides.length
+
+let blocks = []
+
+for(let i = 0; i < length; i++) {
+
+    blocks.push({top: solides[i].offsetTop, left: solides[i].offsetLeft })
+
+}
+
+function nextCell(player1, direction) {
+
+    switch(direction) {
+
+        case 'top':
+        return checkNextTop(player1)
+        break;
+
+        case 'bottom':
+        return checkNextBottom(player1)
+        break;
+
+        case 'left':
+        return checkNextLeft(player1)
+        break;
+
+        case 'right':
+            return checkNextRight(player1)
+            break;
+
+        default: return false
+
+    }
+
+
+}
+
+function checkNextTop(player1) {
+
+    var nextTop = player1.offsetTop - 64
+    var nextLeft = player1.offsetLeft
+
+    return isBlock(nextTop, nextLeft)
+
+}
+
+function checkNextBottom(player1) {
+
+    var nextTop = player1.offsetTop + 64
+    var nextLeft = player1.offsetLeft
+
+    return isBlock(nextTop, nextLeft)
+
+}
+
+function checkNextLeft(player1) {
+
+    var nextTop = player1.offsetTop
+    var nextLeft = player1.offsetLeft - 64 
+  
+    return isBlock(nextTop, nextLeft)
+
+}
+
+function checkNextRight(player1) {
+
+    var nextTop = player1.offsetTop
+    var nextLeft = player1.offsetLeft + 64
     
+    return isBlock(nextTop, nextLeft)
+
+}
+
+function isBlock(nextTop, nextLeft) {
+
+    var length = blocks.length
+
+    for(let i = 0; i < length; i++) {
+
+        if(nextTop == blocks[i].top && nextLeft == blocks[i].left)
+         return true
     
+    }
+
+    return false
+
+}
+
+
+
+// return current cell of player
+// function getCurrentCell() {
+
+//     var top = rect.offsetTop
+//     var left = rect.offsetLeft
+//     var length = grid.length
+
+//     for(let i = 0; i < length; i++) {
+
+//         if(top == grid[i].top && left == grid[i].left)
+//          return i
+    
+//     }
+
+// }
+

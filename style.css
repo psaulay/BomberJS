@@ -1,4 +1,9 @@
 
+td {
+    margin: 0;
+    padding: 0
+}
+
 .bomber_map {
     border-collapse: collapse;
     border-spacing: 0;
@@ -27,20 +32,15 @@ tr.map_line .map_cell {
 .map_cell_solid{
     background-image: url(img/solidBlock.png)
 }
-#rectangle{
+#table{
     position: relative;
 }
-.image{
-    position: absolute
+#player1{
+    position: relative;
 }
+
 .bomberman{
     position: relative;
     z-index: 10;
 }
-div.rectangle{
-    width: 704px;
-}
 
-#table{
-    position: relative;
-}

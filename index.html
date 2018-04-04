@@ -1,21 +1,159 @@
-<!DOCTYPE html>
-	<html lang="fr">
-		<head>
-			<meta charset="utf-8">
-			<meta name="viewport" content="width=device-width, user-scalable=no">
-			<link rel="stylesheet" href="style.css">
-			<title>Bomberman</title>
-		</head>
-		<body>
-            <div class="zone" id="zone">
-				<div id="rectangle" class="blue">
-					<img src="img/bomberman.png" alt="bomberman" width="60px" height="60px">
-				</div>
-                <div id="enemy" class="blue">
-					<img src="img/monstre.png" alt="enemy" width="60px" height="60px">
-				</div>
-			</div>
-            
-            <script type="text/javascript" src="script.js"></script>
-		</body>
-	</html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        
+    </head>
+    <body>
+        <div  class="blue" id="zone">
+
+            <table class="bomber_map" id ="table" >
+                <tbody>
+                    <tr class="map_line">
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                    </tr>
+                    <tr class="map_line">
+                        <td class="map_limit"></td>
+                        <td class="map_cell" id="image"><div id="rectangle"><img src="img/bomberman.png" alt="" width="60px" height="60px"> </div></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_limit"></td>
+                    </tr>
+                    <tr class="map_line">
+                        <td class="map_limit"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell_solid">1</td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell_solid">1</td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell_solid">1</td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell_solid">1</td>
+                        <td class="map_cell"></td>
+                        <td class="map_limit"></td>
+                    </tr>
+                    <tr class="map_line">
+                        <td class="map_limit"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_limit"></td>
+                    </tr>
+                    <tr class="map_line">
+                        <td class="map_limit"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell_solid">1</td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell_solid">1</td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell_solid">1</td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell_solid">1</td>
+                        <td class="map_cell"></td>
+                        <td class="map_limit"></td>
+                    </tr>
+                    <tr class="map_line">
+                        <td class="map_limit"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_limit"></td>
+                    </tr>
+                    <tr class="map_line">
+                        <td class="map_limit"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell_solid">1</td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell_solid">1</td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell_solid">1</td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell_solid">1</td>
+                        <td class="map_cell"></td>
+                        <td class="map_limit"></td>
+                    </tr>
+                    <tr class="map_line">
+                        <td class="map_limit"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_limit"></td>
+                    </tr>
+                    <tr class="map_line">
+                        <td class="map_limit"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell_solid">1</td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell_solid">1</td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell_solid">1</td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell_solid">1</td>
+                        <td class="map_cell"></td>
+                        <td class="map_limit"></td>
+                    </tr>
+                    <tr class="map_line">
+                        <td class="map_limit"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_cell"></td>
+                        <td class="map_limit"></td>
+                    </tr>
+                    <tr class="map_line">
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                        <td class="map_limit"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <script type="text/javascript" src="script.js"></script>
+    </body>
+</html>

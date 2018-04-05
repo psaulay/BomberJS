@@ -5,7 +5,7 @@ var zone = document.getElementById("zone");
 
 document.body.addEventListener('keydown',function(event){
 
-    event.preventDefault();
+    //event.preventDefault();
     //Movement
     var moveLeft = (player1.style.left.replace('px','')*1)-64 + "px";
     var moveRight = (player1.style.left.replace('px','')*1)+64 + "px";
@@ -25,7 +25,7 @@ document.body.addEventListener('keydown',function(event){
 
      //BOUTON GAUCHE
     if (event.keyCode==37 ){
-
+         event.preventDefault();
         var next = nextCell(player1, 'left')
 
         if(next == false)
@@ -39,7 +39,7 @@ document.body.addEventListener('keydown',function(event){
 
     //BOUTON DROIT
     if (event.keyCode==39){
-
+         event.preventDefault();
         var next = nextCell(player1, 'right')
 
         if(next == false)
@@ -53,7 +53,7 @@ document.body.addEventListener('keydown',function(event){
 
     // BOUTON HAUT
     if (event.keyCode==38){
-
+         event.preventDefault();
         var next = nextCell(player1, 'top')
 
         if(next == false)
@@ -66,7 +66,7 @@ document.body.addEventListener('keydown',function(event){
 
     // BOUTON BAS
     if (event.keyCode==40){
-
+         event.preventDefault();
         var next = nextCell(player1, 'bottom')
 
         if(next == false)
@@ -144,61 +144,47 @@ function checkNextTop(player1) {
 
 function checkNextBottom(player1) {
 
-    var nextTop = player1.offsetTop + 64
-    var nextLeft = player1.offsetLeft
+    var nextTop = player1.offsetTop + 64;
+    var nextLeft = player1.offsetLeft;
 
-    return isBlock(nextTop, nextLeft)
+    return isBlock(nextTop, nextLeft);
 
 }
 
 function checkNextLeft(player1) {
 
-    var nextTop = player1.offsetTop
-    var nextLeft = player1.offsetLeft - 64 
+    var nextTop = player1.offsetTop;
+    var nextLeft = player1.offsetLeft - 64 ;
   
-    return isBlock(nextTop, nextLeft)
+    return isBlock(nextTop, nextLeft);
 
 }
 
 function checkNextRight(player1) {
 
-    var nextTop = player1.offsetTop
-    var nextLeft = player1.offsetLeft + 64
+    var nextTop = player1.offsetTop;
+    var nextLeft = player1.offsetLeft + 64;
     
-    return isBlock(nextTop, nextLeft)
+    return isBlock(nextTop, nextLeft);
 
 }
 
 function isBlock(nextTop, nextLeft) {
-
-    var length = blocks.length
-
+      console.log(nextTop, nextLeft);
+      
+    var length = blocks.length;
+      
     for(let i = 0; i < length; i++) {
-
+         console.log(blocks[1].top, blocks[1].left);
         if(nextTop == blocks[i].top && nextLeft == blocks[i].left)
-         return true
+         return true;
     
     }
 
-    return false
+    return false;
 
 }
 
 
 
-// return current cell of player
-// function getCurrentCell() {
-
-//     var top = rect.offsetTop
-//     var left = rect.offsetLeft
-//     var length = grid.length
-
-//     for(let i = 0; i < length; i++) {
-
-//         if(top == grid[i].top && left == grid[i].left)
-//          return i
-    
-//     }
-
-// }
 

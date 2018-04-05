@@ -1,4 +1,8 @@
-
+body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
 td {
     margin: 0;
     padding: 0
@@ -37,6 +41,8 @@ tr.map_line .map_cell {
 }
 #player1{
     position: relative;
+    height: 64px;
+    width: 64px;
 }
 
 .bomberman{

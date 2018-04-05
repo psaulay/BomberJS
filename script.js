@@ -1,212 +1,134 @@
-var player1 = document.getElementById('player1');
-var classes = player1.classList;
-//var move = document.body.addEventListener();
-var zone = document.getElementById("zone");
+var map = document.getElementById('map');
+const player = document.getElementById('player');
+var grille = [
+	[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+	[1, 2, 2, 3, 3, 2, 3, 3, 2, 2, 1],
+	[1, 2, 4, 3, 4, 2, 4, 2, 4, 3, 1],
+	[1, 3, 2, 3, 3, 3, 2, 3, 2, 3, 1],
+	[1, 2, 4, 2, 4, 3, 4, 3, 4, 2, 1],
+	[1, 3, 3, 3, 2, 3, 3, 2, 3, 3, 1],
+	[1, 3, 4, 2, 4, 3, 4, 3, 4, 2, 1],
+	[1, 2, 3, 3, 2, 2, 3, 3, 2, 2, 1],
+	[1, 3, 4, 2, 4, 3, 4, 3, 4, 2, 1],
+	[1, 2, 2, 3, 3, 2, 3, 3, 2, 2, 1],
+	[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+];
 
-document.body.addEventListener('keydown',function(event){
+//pour afficher la map
+function screen (){
+	var x, y = 0;
+	var wall;
+	var floor;
+	var bloc;
+	var solid;
+	
+	for (x = 0; x < 11; x++) {
+		for(y = 0; y < 11; y++) {
+			if (grille[y][x] === 1) {
+				//pour créer le mur
+				wall = document.createElement('div');
+				wall.setAttribute("class", "wall");
+				map.appendChild(wall);
+				//taille pour le mur en pixel
+				wall.style.top = y * 64 + 'px';
+				wall.style.left = x * 64 +'px';
+				//img background
+				wall.style.backgroundImage = "url(img/greyblock.png)";
+			}
+			if (grille[y][x] === 2) {
+				//pour créer le mur
+				floor = document.createElement('div');
+				floor.setAttribute("class", "floor");
+				map.appendChild(floor);
+				//taille pour le mur en pixel
+				floor.style.top = y * 64 + 'px';
+				floor.style.left = x * 64 +'px';
+				floor.style.backgroundImage = "url(img/background.png)";
+			}
+			if (grille[y][x] === 3) {
+				//pour créer le mur
+				bloc = document.createElement('div');
+				bloc.setAttribute("class", "bloc");
+				map.appendChild(bloc);
+				//taille pour le mur en pixel
+				bloc.style.top = y * 64 + 'px';
+				bloc.style.left = x * 64 +'px';
+				bloc.style.backgroundImage = "url(img/block.png)";
+			}
+			if (grille[y][x] === 4) {
+				//pour créer le mur
+				solid = document.createElement('div');
+				solid.setAttribute("class", "solid");
+				map.appendChild(solid);
+				//taille pour le mur en pixel
+				solid.style.top = y * 64 + 'px';
+				solid.style.left = x * 64 +'px';
+				solid.style.backgroundImage = "url(img/solidBlock.png)";
+			}
+		}
+	}
+}
+//ligne pour afficher la map
+screen ();
+	
+//controle du jeu via le curseur activer
+var controlActive = true;
 
-    //event.preventDefault();
-    //Movement
-    var moveLeft = (player1.style.left.replace('px','')*1)-64 + "px";
-    var moveRight = (player1.style.left.replace('px','')*1)+64 + "px";
-    var moveUp = (player1.style.top.replace('px','')*1)-64 + "px";
-    var moveDown = (player1.style.top.replace('px','')*1)+64 + "px";
-    //Movement Stop
-    var moveLeftStop = (player1.style.left.replace('px','')*1)+0+ "px";
-    var moveUpStop = (player1.style.top.replace('px','')*1)+0 + "px";
-    //Offset Object
-    var goLeft = (player1.offsetLeft);
-    var goTop = (player1.offsetTop);
-    //Logs
-    // console.log(moveRight);
-    // console.log(goLeft);
-    // console.log(player1);
-    // console.log(zone);
-
-     //BOUTON GAUCHE
-    if (event.keyCode==37 ){
-         event.preventDefault();
-        var next = nextCell(player1, 'left')
-
-        if(next == false)
-         player1.style.left=moveLeft;
-
-         if (goLeft<100){
-            player1.style.left=moveLeftStop;
-        }
-
-    }
-
-    //BOUTON DROIT
-    if (event.keyCode==39){
-         event.preventDefault();
-        var next = nextCell(player1, 'right')
-
-        if(next == false)
-            player1.style.left=moveRight;
-    
-        if (goLeft>565){
-            player1.style.left=moveLeftStop;
-        }
-
-    }
-
-    // BOUTON HAUT
-    if (event.keyCode==38){
-         event.preventDefault();
-        var next = nextCell(player1, 'top')
-
-        if(next == false)
-            player1.style.top=moveUp;
- 
-    }
-    if (goTop<100){
-        player1.style.top=moveUpStop;
-    }
-
-    // BOUTON BAS
-    if (event.keyCode==40){
-         event.preventDefault();
-        var next = nextCell(player1, 'bottom')
-
-        if(next == false)
-            player1.style.top=moveDown;
-
-        if (goTop>575){
-            player1.style.top=moveUpStop;
-        }
-
-    }
+// appel de la fonction des touche directionnel
+document.addEventListener("keydown" , function(touche){
+	var posInitial = 0;
+	var bombermanLeft = player.offsetLeft;
+	var bombermanTop = player.offsetTop;
+	var posCellLeft = player.offsetLeft / 64;
+	var posCellTop = player.offsetTop / 64;
+		
+		if (controlActive){
+			switch (touche.keyCode){
+				
+				//haut
+				case 38:
+					if (grille[posCellTop - 1][posCellLeft] == 2){
+						player.style.top = (posCellTop - 1) * 64 + 'px';
+						player.style.background = "url(img/bomberman.png)";
+					}
+					break;
+				//bas
+				
+				case 40:
+					if (grille[posCellTop + 1][posCellLeft] == 2){
+						player.style.top = (posCellTop + 1) * 64 + 'px';
+						player.style.background = "url(img/bomberman.png)";
+					}
+					break;
+				//gauche
+				
+				case 37:
+					if (grille[posCellLeft - 1][posCellTop] == 2){
+						player.style.left = (posCellLeft - 1) * 64 + 'px',
+						player.style.background = "url(img/bomberman.png)";
+					}
+					break;
+				
+				//droite				
+				case 39:
+					if (grille[posCellLeft + 1][posCellTop] == 2){
+						player.style.left = (posCellLeft + 1) * 64 + 'px';
+						player.style.background = "url(img/bomberman.png)";
+					}
+					break;
+		
+				//bomb
+				case 32:
+					insertBomb();
+				//if (posInitial === 0){
+				//		bomb.style.left = bombermanLeft + "px";
+				//		bomb.style.top = bombermanTop + "px";
+				//		bomb.style.background = "url(img/bomb.png)";
+				//		bomb.style.display = "block";
+				//	}
+				//	break
+		}
+	}
 })
-
-
-/////////// GRID
-var grid = [];
-
-for ( var i = 64; i < 586; i+=64)
-{
-        for ( var j = 64; j < 586; j+=64 )
-    {
-        grid.push({top:i,left:j})
-    }
-
-}
-// console.log(grid);
-
-
-
-const solides = document.querySelectorAll('.map_cell_solid')
-const length  = solides.length
-
-let blocks = []
-
-for(let i = 0; i < length; i++) {
-
-    blocks.push({top: solides[i].offsetTop, left: solides[i].offsetLeft })
-
-}
-
-function nextCell(player1, direction) {
-
-    switch(direction) {
-
-        case 'top':
-        return checkNextTop(player1)
-        break;
-
-        case 'bottom':
-        return checkNextBottom(player1)
-        break;
-
-        case 'left':
-        return checkNextLeft(player1)
-        break;
-
-        case 'right':
-            return checkNextRight(player1)
-            break;
-
-        default: return false
-
-    }
-
-
-}
-
-function checkNextTop(player1) {
-
-    var nextTop = player1.offsetTop - 64
-    var nextLeft = player1.offsetLeft
-
-    return isBlock(nextTop, nextLeft)
-
-}
-
-function checkNextBottom(player1) {
-
-    var nextTop = player1.offsetTop + 64;
-    var nextLeft = player1.offsetLeft;
-
-    return isBlock(nextTop, nextLeft);
-
-}
-
-function checkNextLeft(player1) {
-
-    var nextTop = player1.offsetTop;
-    var nextLeft = player1.offsetLeft - 64 ;
-  
-    return isBlock(nextTop, nextLeft);
-
-}
-
-function checkNextRight(player1) {
-
-    var nextTop = player1.offsetTop;
-    var nextLeft = player1.offsetLeft + 64;
-    
-    return isBlock(nextTop, nextLeft);
-
-}
-
-function isBlock(nextTop, nextLeft) {
-      console.log(nextTop, nextLeft);
-      
-    var length = blocks.length;
-      
-    for(let i = 0; i < length; i++) {
-         console.log(blocks[1].top, blocks[1].left);
-        if(nextTop == blocks[i].top && nextLeft == blocks[i].left)
-         return true;
-    
-    }
-
-    return false;
-
-}
-
-function breakwall(explosion) {
-
-   var element = document.getElementsById('wall');
-   var wallDeleteLeft = 0;
-   var wallDeleteTop = 0;
-
-for (var i = element.length - 1; i >= 0; i--) {
-
-   wallDeleteLeft = element[i].offsetLeft / 50;
-   wallDeleteTop = element[i].offsetTop / 50;
-
-if ((explosion.offsetTop / 50 == wallDeleteTop) && (explosion.offsetLeft / 50 == wallDeleteLeft)) {
-
-   element[i].style.display= "none";
-
-if (bomber_map[wallDeleteTop][wallDeleteLeft] == 2) {
-   bomber_map[wallDeleteTop][wallDeleteLeft] = 1;
-
-}
-
-}
-}
-}
 
 

@@ -44,7 +44,10 @@ tr.map_line .map_cell {
     height: 64px;
     width: 64px;
 }
-
+#wall{
+    width: 64px;
+    height: 64px;
+}
 .bomberman{
     position: relative;
     z-index: 10;

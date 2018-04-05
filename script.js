@@ -185,6 +185,28 @@ function isBlock(nextTop, nextLeft) {
 
 }
 
+function breakwall(explosion) {
 
+   var element = document.getElementsById('wall');
+   var wallDeleteLeft = 0;
+   var wallDeleteTop = 0;
+
+for (var i = element.length - 1; i >= 0; i--) {
+
+   wallDeleteLeft = element[i].offsetLeft / 50;
+   wallDeleteTop = element[i].offsetTop / 50;
+
+if ((explosion.offsetTop / 50 == wallDeleteTop) && (explosion.offsetLeft / 50 == wallDeleteLeft)) {
+
+   element[i].style.display= "none";
+
+if (bomber_map[wallDeleteTop][wallDeleteLeft] == 2) {
+   bomber_map[wallDeleteTop][wallDeleteLeft] = 1;
+
+}
+
+}
+}
+}
 
 
